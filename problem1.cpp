@@ -1,5 +1,5 @@
 /*
- *   Link: https://leetcode.com/problems/add-two-numbers/description/
+ *   Link: https://leetcode.com/problems/two-sum/description/
 */
 
 #include <vector>
@@ -21,15 +21,13 @@ public:
         for (int i = 0; i < size; ++i)
         {
             const auto elem = nums.at(i);
-            umap.emplace(std::make_pair(elem, i));
-        }
-
-        for (const auto& [num, idx] : umap)
-        {
-            const auto numToSearch = target - num;
+            const auto numToSearch = target - elem;
             const auto iter = umap.find(numToSearch);
-            if (iter != umap.cend() && idx != iter->second)
-                return {idx, iter->second};
+
+            if (iter != umap.cend())
+                return {i, iter->second};
+
+            umap.emplace(std::make_pair(elem, i));
         }
 
         return {};
@@ -57,7 +55,7 @@ private:
 };
 
 struct TestWithParameters : public testing::TestWithParam<std::tuple<std::vector<int>, int, std::vector<int>>> {};
-TEST_P(TestWithParameters, TestName)
+TEST_P(TestWithParameters, Problem_1)
 {
     auto [nums, target, expect] = GetParam();
     Solution solver {};
