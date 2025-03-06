@@ -10,6 +10,7 @@
 class Solution
 {
 public:
+    // NOTE: O(n)
     std::vector<int> twoSum(std::vector<int>& nums, int target)
     {
         const auto size = nums.size();
