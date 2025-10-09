@@ -14,24 +14,20 @@ public:
     std::vector<int> plusOne(std::vector<int>& digits)
     {
         auto res = digits;
-
-        bool incrFlag {false};
         bool prepend {false};
         int addition = 0;
-        for (auto iter = res.rbegin(); iter != res.rend(); ++iter)
+        const auto& rend = res.rend();
+
+        for (auto iter = res.rbegin(); iter != rend; ++iter)
         {
             auto& elem = *iter;
-            if (!incrFlag)
-            {
-                incrFlag = true;
-            }
             ++elem;
 
-            if (elem < 9)
+            if (elem < 10)
                 break;
 
             elem = 0;
-            if (iter + 1 == res.rend())
+            if (iter + 1 == rend)
                 prepend = true;
         }
 
@@ -42,28 +38,6 @@ public:
             tmp[0] = 1;
             res = tmp;
         }
-
-        // auto iter = res.rbegin();
-        // auto& elem = *iter;
-        // ++elem;
-
-        // if (elem < 9)
-        // {
-        //     return res;
-        // }
-
-        // int resInc {0};
-        // // int addition = 1;
-        // for (; iter != res.rend(); ++iter)
-        // {
-        //     auto& currElem = *iter;
-        //     currElem = 0;
-        //     ++currElem;
-
-        //     if (10 != currElem)
-        //         break;
-
-        // }
 
         return res;
     }
@@ -81,6 +55,7 @@ INSTANTIATE_TEST_SUITE_P(TestGroupName, TestWithParameters, testing::Values(
     std::make_tuple(std::vector<int>{1, 2, 3}, std::vector<int>{1, 2, 4}),
     std::make_tuple(std::vector<int>{4, 3, 2, 1}, std::vector<int>{4, 3, 2, 2}),
     std::make_tuple(std::vector<int>{9}, std::vector<int>{1, 0}),
-    std::make_tuple(std::vector<int>{9, 9, 9}, std::vector<int>{1, 0, 0, 0})
+    std::make_tuple(std::vector<int>{9, 9, 9}, std::vector<int>{1, 0, 0, 0}),
+    std::make_tuple(std::vector<int>{8, 9, 9, 9}, std::vector<int>{9, 0, 0, 0})
 ));
 
