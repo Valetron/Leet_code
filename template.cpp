@@ -15,8 +15,8 @@ TEST(Template, Test)
 struct TestWithParameters : public testing::TestWithParam<std::tuple<std::string, std::string>> {};
 TEST_P(TestWithParameters, TestName)
 {
-    const auto& [first, second] = GetParam();
-    EXPECT_STRNE(first.c_str(), second.c_str());
+    const auto& [inputData, expectRes] = GetParam();
+    EXPECT_STRNE(inputData.c_str(), expectRes.c_str());
 }
 INSTANTIATE_TEST_SUITE_P(TestGroupName, TestWithParameters, testing::Values(
     std::make_tuple("Hello", "World")
