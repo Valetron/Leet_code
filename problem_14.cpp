@@ -2,6 +2,7 @@
  *  Link: https://leetcode.com/problems/longest-common-prefix/description/
 */
 
+#include <set>
 #include <tuple>
 #include <string>
 #include <vector>
@@ -13,31 +14,22 @@ class Solution
 public:
     std::string longestCommonPrefix(const std::vector<std::string>& strs)
     {
-        std::string res {};
-
-        const auto strsSize = strs.size();
-
-        if (1 == strsSize)
+        if (1 == strs.size())
             return strs[0];
 
-        const auto& firstWord = strs[0];
-        std::string tmpStr {};
-        for (auto ch = firstWord.cbegin(); ch != firstWord.cend(); ++ch)
-        {
-            tmpStr = (res + *ch);
+        const std::set<std::string> setStr(strs.cbegin(), strs.cend());
 
-            for (size_t i = 1; i < strsSize; ++i)
-            {
-#if __cplusplus >= 202002L
-                if (!strs[i].starts_with(tmpStr))
-#else
-                if (strs[i].compare(tmpStr) < 0)
-#endif
-                {
-                    return res;
-                }
-            }
-            res = std::move(tmpStr);
+        const auto& firstWord = *setStr.cbegin();
+        const auto& lastWord = *setStr.crbegin();
+        const auto minLen = std::min(firstWord.length(), lastWord.length());
+
+        std::string res {};
+        for (auto i = 0; i < minLen; ++i)
+        {
+            if (firstWord[i] == lastWord[i])
+                res += firstWord[i];
+            else
+                break;
         }
 
         return res;
