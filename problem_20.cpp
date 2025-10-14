@@ -2,22 +2,20 @@
  *  Link: https://leetcode.com/problems/valid-parentheses/description/
 */
 
-#include <map>
 #include <stack>
 #include <tuple>
 #include <string>
-#include <algorithm>
+#include <unordered_map>
 
 #include <gtest/gtest.h>
 
 namespace
 {
-constexpr auto g_closeParentheses = {')', ']', '}'};
 inline const auto g_checkClose = [](const auto ch) {
-    return (std::find(g_closeParentheses.begin(), g_closeParentheses.end(), ch) != g_closeParentheses.end());
+    return ch == ')' || ch == ']' || ch == '}';
 };
 inline const auto g_checkPairClose = [](const char currCh, const char lastCh) {
-    static std::map<char, char> closeOpenMap {
+    static std::unordered_map<char, char> closeOpenMap {
         {')', '('},
         {'}', '{'},
         {']', '['},
@@ -37,9 +35,8 @@ public:
             return false;
 
         std::stack<char> parentheses {};
-        for (auto iter = str.cbegin(); iter != str.cend(); ++iter)
+        for (const auto currCh : str)
         {
-            const auto currCh = *iter;
             if (!parentheses.empty())
             {
                 const auto lastCh = parentheses.top();
