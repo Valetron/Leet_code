@@ -3,6 +3,9 @@
 
 #include <initializer_list>
 
+namespace utils
+{
+
 struct ListNode
 {
   int val;
@@ -12,7 +15,9 @@ struct ListNode
   ListNode(int x, ListNode* next) : val(x), next(next) {}
 };
 
-static ListNode* createListNode(std::initializer_list<int> list);
-static void printListRecursive(ListNode const* list);
+ListNode* createListNode(std::initializer_list<int> list);
+void printListRecursive(ListNode const* list);
+bool compareListNodes(const ListNode* lhs, const ListNode* rhs);
 
+} // namespace utils
 #endif // UTILS_LIST_NODE_HPP

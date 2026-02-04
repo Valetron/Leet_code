@@ -3,6 +3,9 @@
 #include <iostream>
 #include <iterator>
 
+namespace utils
+{
+
 ListNode* createListNode(std::initializer_list<int> list)
 {
   if (std::empty(list))
@@ -31,3 +34,36 @@ void printListRecursive(ListNode const* list)
   std::cout << list->val << " ";
   printListRecursive(list->next);
 }
+
+bool compareListNodes(const ListNode* lhs, const ListNode* rhs)
+{
+  if (nullptr == lhs && nullptr == rhs)
+    return true;
+
+  auto currLhs = lhs;
+  auto currRhs = rhs;
+
+  auto isEqual {true};
+
+  while (currLhs != nullptr && currRhs != nullptr)
+  {
+    if ((currLhs != nullptr && nullptr == currRhs) || (nullptr == currLhs && currRhs != nullptr))
+    {
+      isEqual = false;
+      break;
+    }
+
+    if (currLhs->val != currRhs->val)
+    {
+      isEqual = false;
+      break;
+    }
+
+    currLhs = currLhs->next;
+    currRhs = currRhs->next;
+  }
+
+  return isEqual;
+}
+
+} // namespace utils
