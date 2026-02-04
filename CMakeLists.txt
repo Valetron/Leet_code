@@ -12,13 +12,14 @@ foreach(test_file ${SOURCES})
 
     add_executable(${test_target_name} ${test_file})
     target_link_libraries(${test_target_name} GTest::gtest_main)
+    target_include_directories(${test_target_name} PUBLIC "utils/")
 
     add_test(NAME ${test_target_name} COMMAND ${test_target_name})
 
-    add_custom_command(
-         TARGET ${test_target_name}
-         COMMENT "Run \"${test_target_name}\""
-         POST_BUILD
-         COMMAND ${test_target_name})
+        # add_custom_command(
+        #      TARGET ${test_target_name}
+        #      COMMENT "Run \"${test_target_name}\""
+        #      POST_BUILD
+        #      COMMAND ${test_target_name})
 
 endforeach()
