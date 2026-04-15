@@ -13,6 +13,48 @@ class Solution
 public:
     std::vector<int> plusOne(std::vector<int>& digits)
     {
+      const auto oldLen = digits.size();
+
+      if (digits.back() != 9)
+      {
+        digits[oldLen - 1]++;
+        return digits;
+      }
+
+      bool increment {true};
+
+      for (auto iter = digits.rbegin(); iter != digits.rend(); ++iter)
+      {
+        if (increment)
+        {
+          if (9 == *iter)
+          {
+            increment = true;
+            *iter = 0;
+          }
+          else
+          {
+            increment = false;
+            ++(*iter);
+          }
+        }
+        else
+        {
+          break;
+        }
+      }
+
+      if (increment)
+      {
+        digits.insert(digits.begin(), 1);
+      }
+
+      return digits;
+    }
+
+private:
+    std::vector<int> plusOnePrev(std::vector<int>& digits)
+    {
         auto res = digits;
         bool prepend {false};
         int addition = 0;
